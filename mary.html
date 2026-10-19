@@ -1,0 +1,309 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Mary | JustAArtist's Art Portfolio</title>
+
+  <style>
+    :root {
+      --background: #02182B;
+      --card: #08263B;
+      --text: #F5F7FA;
+      --muted: #B7CEDA;
+      --red: #D7263D;
+      --border: #448FA3;
+      --accent: #68C5DB;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse at 50% 0%, #12384D 0%, transparent 55%),
+        var(--background);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      line-height: 1.7;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      padding: 18px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      background: rgba(2, 24, 43, 0.96);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-weight: bold;
+    }
+
+    .logo span,
+    .red {
+      color: var(--red);
+    }
+
+    .back {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .back:hover {
+      color: var(--accent);
+    }
+
+    main {
+      width: 90%;
+      max-width: 1050px;
+      margin: auto;
+      padding: 55px 0 75px;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    h1, h2 {
+      font-family: Georgia, serif;
+      font-weight: normal;
+    }
+
+    h1 {
+      font-size: clamp(48px, 8vw, 82px);
+      line-height: 1.05;
+      margin: 10px 0;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin-top: 0;
+    }
+
+    .profile-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 38px;
+      align-items: start;
+      margin-top: 35px;
+    }
+
+    .portrait-frame {
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: linear-gradient(145deg, #12384D, #58111A);
+    }
+
+    .portrait-frame img {
+      display: block;
+      width: 100%;
+      max-height: 650px;
+      object-fit: contain;
+      border-radius: 6px;
+      background: var(--card);
+    }
+
+    .portrait-caption {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      margin: 12px 0 2px;
+    }
+
+    .profile-section {
+      padding: 23px;
+      margin-bottom: 20px;
+      background: rgba(8, 38, 59, 0.8);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .profile-section h2 {
+      margin: 0 0 10px;
+      font-size: 26px;
+    }
+
+    .profile-section p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .detail-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 15px;
+    }
+
+    .detail {
+      padding: 12px;
+      border-radius: 7px;
+      background: #02182B;
+    }
+
+    .detail strong {
+      display: block;
+      color: var(--accent);
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .detail span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .placeholder-note {
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 25px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @media (max-width: 700px) {
+      .profile-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .portrait-frame {
+        max-width: 500px;
+        margin: auto;
+        width: 100%;
+      }
+
+      main {
+        padding-top: 35px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <a class="logo" href="index.html">
+      JustAArtist's <span>Art Portfolio.</span>
+    </a>
+    <a class="back" href="characters.html#book-1">
+      ← Back to Book 1
+    </a>
+  </header>
+
+  <main>
+    <p class="eyebrow">Character Profile · Book 1</p>
+    <h1>Mary<span class="red">.</span></h1>
+    <p class="subtitle">
+      An original character in the world of my manga.
+    </p>
+
+    <div class="profile-layout">
+      <div>
+        <div class="portrait-frame">
+          <img src="images/Marypro.PNG" alt="Mary's character portrait">
+          <p class="portrait-caption">
+            Character reference
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <section class="profile-section">
+          <h2>About Mary</h2>
+          <p>
+            Mary's character profile is still being developed.
+            More details about her personality, background, and
+            role in the story will be added here.
+          </p>
+        </section>
+
+        <section class="profile-section">
+          <h2>Character Details</h2>
+
+          <div class="detail-list">
+            <div class="detail">
+              <strong>First Appears</strong>
+              <span>Book 1</span>
+            </div>
+
+            <div class="detail">
+              <strong>Character Type</strong>
+              <span>Original character</span>
+            </div>
+
+            <div class="detail">
+              <strong>Abilities</strong>
+              <span>To be added</span>
+            </div>
+
+            <div class="detail">
+              <strong>Affiliation</strong>
+              <span>To be added</span>
+            </div>
+          </div>
+        </section>
+
+        
+<section class="profile-section">
+  <h2>Reference Sheet</h2>
+  <p>
+    Mary's character reference sheet, showing her design and details.
+  </p>
+
+  <img
+    src="images/MaryRefsheet.webp"
+    alt="Mary's full character reference sheet"
+    style="display:block; width:100%; height:auto; margin-top:18px; border:1px solid var(--border); border-radius:8px;"
+  >
+</section>
+
+<section class="profile-section">
+  <h2>Artwork & Gallery</h2>
+  <p>
+    More drawings, expressions, outfits, and character references
+    for Mary will be added as the collection grows.
+  </p>
+</section>
+
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    © <span id="year"></span> JustAArtist's Art Portfolio · Made with creativity.
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
+</body>
+</html>

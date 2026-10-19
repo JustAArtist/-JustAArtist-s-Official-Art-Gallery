@@ -1,0 +1,670 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JustAArtists Art Gallery</title>
+
+  <style>
+    :root {
+      --background: #02182B;
+      --card: #08263B;
+      --text: #F5F7FA;
+      --muted: #B7CEDA;
+      --red: #D7263D;
+      --border: #448FA3;
+      --accent: #68C5DB;
+
+      --sky-blue: #68C5DB;
+      --pacific-cyan: #448FA3;
+      --dodger-blue: #0197F6;
+      --classic-crimson: #D7263D;
+      --prussian-blue: #02182B;
+      --bright-crimson: #F2003C;
+      --dark-red: #7C0A02;
+      --vivid-red: #ED2939;
+      --deep-burgundy: #58111A;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--background);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .logo span,
+    .red {
+      color: var(--red);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      font-size: 14px;
+    }
+
+    .nav-links a:hover,
+    .socials a:hover {
+      color: var(--red);
+    }
+
+    .hero {
+      min-height: 430px;
+      padding-top: 70px;
+      padding-bottom: 70px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .eyebrow {
+      color: var(--red);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    h1 {
+      font-size: clamp(42px, 7vw, 72px);
+      line-height: 1.08;
+      margin: 15px 0;
+    }
+
+    h2 {
+      font-size: 32px;
+      margin: 8px 0 18px;
+    }
+
+    h3 {
+      margin-top: 0;
+    }
+
+    p {
+      color: var(--muted);
+    }
+
+    .button {
+      display: inline-block;
+      padding: 12px 20px;
+      margin-top: 12px;
+      border-radius: 5px;
+      background: var(--red);
+      color: white;
+      font-weight: bold;
+    }
+
+    .button:hover {
+      opacity: 0.85;
+    }
+
+    /* Featured artwork on the homepage */
+    .hero-art {
+      min-height: 300px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .featured-content {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .featured-title {
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .featured-subtitle {
+      margin: 8px 0 18px;
+      font-size: 13px;
+    }
+
+    .featured-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      text-align: left;
+    }
+
+    .featured-card {
+      display: block;
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--background);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .featured-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--red);
+    }
+
+    .featured-card img {
+      display: block;
+      width: 100%;
+      height: 155px;
+      object-fit: cover;
+    }
+
+    .featured-card span {
+      display: block;
+      padding: 9px 7px;
+      color: var(--text);
+      font-size: 12px;
+      font-weight: bold;
+      overflow-wrap: anywhere;
+    }
+
+    /* Main gallery section */
+    section {
+      padding: 65px 0;
+      scroll-margin-top: 75px;
+    }
+
+    .section-heading {
+      margin-bottom: 25px;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 20px 0;
+    }
+
+    .filters button {
+      padding: 8px 15px;
+      color: var(--text);
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    .filters button.active,
+    .filters button:hover {
+      background: var(--red);
+      border-color: var(--red);
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .art-card {
+      min-width: 0;
+      overflow: hidden;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+    }
+
+    .art-card[hidden] {
+      display: none;
+    }
+
+    .art-image {
+      aspect-ratio: 4 / 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+      background: #30272d;
+      color: #f2b2bc;
+    }
+
+    .art-image span {
+      font-size: 14px;
+    }
+
+    .art-info {
+      padding: 16px;
+    }
+
+    .art-info h3 {
+      margin: 0;
+    }
+
+    .art-info p {
+      margin-bottom: 0;
+      font-size: 14px;
+    }
+
+    /* JustAArtists Art Gallery link card */
+    .dictionary-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      min-width: 0;
+      min-height: 100%;
+      padding: 24px;
+      color: var(--text);
+      background:
+        radial-gradient(
+          circle at 100% 0%,
+          rgba(215, 38, 61, 0.2),
+          transparent 45%
+        ),
+        linear-gradient(145deg, #08263B, #02182B);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+      transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .dictionary-card::after {
+      content: "✧";
+      position: absolute;
+      right: 10px;
+      top: 8px;
+      font-size: 85px;
+      line-height: 1.2;
+      color: var(--red);
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    .dictionary-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--bright-crimson);
+      box-shadow: 0 8px 25px rgba(242, 0, 60, 0.2);
+    }
+
+    .dictionary-card:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    .dictionary-icon {
+      color: var(--bright-crimson);
+      font-size: 30px;
+      margin-bottom: 12px;
+      text-shadow: 0 0 15px rgba(242, 0, 60, 0.5);
+    }
+
+    .dictionary-label {
+      color: var(--accent);
+      font-size: 10px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .dictionary-card h3 {
+      color: #FFFFFF;
+      font-size: clamp(20px, 2.2vw, 27px);
+      line-height: 1.3;
+      overflow-wrap: anywhere;
+      margin: 10px 0;
+    }
+
+    .dictionary-card p {
+      color: #D5E5EF;
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0 0 22px;
+    }
+
+    .dictionary-link {
+      color: var(--bright-crimson);
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .dictionary-link span {
+      display: inline-block;
+      margin-left: 5px;
+      transition: transform 0.2s ease;
+    }
+
+    .dictionary-card:hover .dictionary-link span {
+      transform: translate(4px, -3px);
+    }
+
+    .project {
+      padding: 25px;
+      margin-bottom: 15px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--card);
+    }
+
+    .socials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    footer {
+      padding: 25px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 700px) {
+      nav {
+        padding: 16px 0;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 45px;
+      }
+
+      .gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .featured-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .featured-card img {
+        height: 220px;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="container">
+      <a class="logo" href="#home">JustAArtist's <span>Art Portfolio.</span></a>
+
+      <div class="nav-links">
+        <a href="#gallery">Gallery</a>
+        <a href="characters.html">My Characters</a>
+        <a href="#manga">Manga</a>
+        <a href="#about">About</a>
+        <a href="#links">Links</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero container" id="home">
+      <div>
+        <div class="eyebrow">Artist · Illustrator · Storyteller</div>
+
+        <h1>Every line tells a <span class="red">story.</span></h1>
+
+        <p>
+          Welcome to my little corner of the internet!
+          Here you'll find my artwork, original characters,
+          manga projects, and the worlds I love creating.
+        </p>
+
+        <a class="button" href="#gallery">Explore my art ↗</a>
+      </div>
+
+      <div class="hero-art">
+        <div class="featured-content">
+          <div class="red featured-title">✦ FEATURED ART ✦</div>
+          <p class="featured-subtitle">A few of my favorite creations.</p>
+
+          <div class="featured-grid">
+            <a class="featured-card" href="artwork.html">
+              <img src="images/angelcomp.webp" alt="Angel composition artwork">
+              <span>Angel Composition</span>
+            </a>
+
+            <a class="featured-card" href="artwork.html">
+              <img src="images/sand%20fight.webp" alt="Sand fight artwork">
+              <span>Sand Fight</span>
+            </a>
+
+            <a class="featured-card" href="artwork.html">
+              <img src="images/IMG_4587.webp" alt="Featured artwork">
+              <span>Artwork No. 3</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" id="gallery">
+      <div class="eyebrow">A collection of my work</div>
+      <h2>Art Gallery</h2>
+      <p>Choose a category to explore my artwork.</p>
+
+      <div class="filters">
+        <button class="active" data-filter="all">All</button>
+        <button data-filter="art">Illustrations</button>
+        <button data-filter="oc">Characters</button>
+        <button data-filter="manga">Manga</button>
+      </div>
+
+      <div class="gallery">
+
+        <a href="artwork.html" class="dictionary-card" data-category="art">
+          <span class="dictionary-icon">✦</span>
+          <span class="dictionary-label">A COLLECTION OF CREATIVITY</span>
+          <h3>JustAArtists Art Gallery</h3>
+          <p>Explore my finished art, sketches, lineart, and colorful creations.</p>
+          <span class="dictionary-link">EXPLORE THE GALLERY <span>↗</span></span>
+        </a>
+
+        <a href="characters.html" class="art-card" data-category="oc" style="text-decoration: none; color: inherit; display: block;">
+          <div class="art-image" style="padding: 0;">
+            <img
+              src="images/my-oc.png.webp"
+              alt="My original character artwork"
+              style="width: 100%; height: 100%; object-fit: cover; display: block;"
+            >
+          </div>
+          <div class="art-info">
+            <h3>My Characters ↗</h3>
+            <p>Meet my original characters!</p>
+          </div>
+        </a>
+
+        <article class="art-card" data-category="manga">
+          <div class="art-image">
+            <span>✦ Add your manga art here ✦</span>
+          </div>
+          <div class="art-info">
+            <h3>My Manga</h3>
+            <p>Stories and illustrations</p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="container" id="manga">
+      <div class="eyebrow">Stories brought to life</div>
+      <h2>Manga & Projects</h2>
+
+      <div class="project">
+        <h3 class="red">My Manga Project</h3>
+
+        <p>
+          Interested in joining my manga team?
+          Apply below to become part of the project!
+        </p>
+
+        <a
+          class="button"
+          href="https://docs.google.com/forms/d/e/1FAIpQLSfQSU0e-mc-p4hLrnikleN2dvdGvgxf13A6XtRKxFYkV7ySkw/viewform?usp=header"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Manga Application ↗
+        </a>
+
+        <p>Already applied and looking for the team server?</p>
+
+        <a
+          class="button"
+          href="https://discord.gg/raSsnyus7G"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Manga Team Discord ↗
+        </a>
+      </div>
+    </section>
+
+    <section class="container" id="about">
+      <div class="eyebrow">A little introduction</div>
+      <h2>About Me</h2>
+
+      <div class="project">
+        <p>
+          Hi! I'm an artist who loves drawing, designing characters,
+          and creating stories. This website is my personal gallery
+          where I can share my creative journey with you.
+        </p>
+        <p>My favorite things to create: art, characters, and manga!</p>
+      </div>
+    </section>
+
+    <section class="container" id="links">
+      <div class="eyebrow">Let's connect</div>
+      <h2>Find Me Online</h2>
+
+      <p>
+        Follow my art, join the community, and see what I'm creating!
+      </p>
+
+      <div class="socials">
+        <a
+          href="https://discord.gg/HhaFEVPvSy"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          🎨 Art Discord ↗
+        </a>
+
+        <a
+          href="https://www.tiktok.com/@justaartistxo?is_from_webapp=1&sender_device=pc"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          🎵 TikTok ↗
+        </a>
+
+        <a
+          href="https://www.instagram.com/justaarrist/?hl=en"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          📸 Instagram ↗
+        </a>
+
+        <a
+          href="https://www.youtube.com/@JustAArtist_XO"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          ▶️ YouTube ↗
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span id="year"></span> JustAArtists Art Gallery · Made with creativity.
+    </div>
+  </footer>
+
+  <script>
+    const buttons = document.querySelectorAll("[data-filter]");
+    const cards = document.querySelectorAll(".gallery [data-category]");
+
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        const category = button.dataset.filter;
+
+        buttons.forEach(item => item.classList.remove("active"));
+        button.classList.add("active");
+
+        cards.forEach(card => {
+          card.hidden =
+            category !== "all" &&
+            card.dataset.category !== category;
+        });
+      });
+    });
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
+</body>
+</html>

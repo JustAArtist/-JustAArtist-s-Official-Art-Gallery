@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Artwork Dictionary | JustAArtist</title>
+
+  <style>
+    :root {
+      --background: #02182B;
+      --card: #08263B;
+      --text: #F5F7FA;
+      --muted: #B7CEDA;
+      --red: #D7263D;
+      --border: #448FA3;
+      --accent: #68C5DB;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .red {
+      color: var(--red);
+    }
+
+    .back {
+      color: var(--muted);
+    }
+
+    .back:hover {
+      color: var(--red);
+    }
+
+    main {
+      padding-top: 65px;
+      padding-bottom: 80px;
+    }
+
+    .eyebrow {
+      color: var(--red);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    h1 {
+      font-size: clamp(38px, 6vw, 64px);
+      line-height: 1.1;
+      margin: 12px 0;
+    }
+
+    .intro {
+      color: var(--muted);
+      max-width: 650px;
+      margin-bottom: 35px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .art-category {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .art-category:hover {
+      transform: translateY(-5px);
+      border-color: var(--red);
+    }
+
+    .category-image {
+      min-height: 230px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: #30272d;
+      color: #f2b2bc;
+      font-size: 48px;
+    }
+
+    .category-info {
+      padding: 20px;
+    }
+
+    .category-info h2 {
+      margin: 0 0 6px;
+      font-size: 24px;
+    }
+
+    .category-info p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .open-link {
+      display: inline-block;
+      margin-top: 15px;
+      color: var(--red);
+      font-weight: bold;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 25px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 600px) {
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .category-image {
+        min-height: 190px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="container">
+      <a class="logo" href="index.html">
+        JustAArtist's <span class="red">Art Portfolio.</span>
+      </a>
+      <a class="back" href="index.html">← Back to Home</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="eyebrow">The art collection</div>
+    <h1>Artwork <span class="red">Dictionary.</span></h1>
+
+    <p class="intro">
+      Explore my creative process, from the first rough sketch
+      to the finished illustration. Choose a category below!
+    </p>
+
+    <div class="gallery">
+
+      <a class="art-category" href="finished.html">
+        <div class="category-image">✦</div>
+        <div class="category-info">
+          <h2>Finished Art</h2>
+          <p>Completed illustrations and final pieces.</p>
+          <span class="open-link">Explore finished art ↗</span>
+        </div>
+      </a>
+
+      <a class="art-category" href="sketches.html">
+        <div class="category-image">✎</div>
+        <div class="category-info">
+          <h2>Sketches</h2>
+          <p>Rough drawings, ideas, and early concepts.</p>
+          <span class="open-link">Explore sketches ↗</span>
+        </div>
+      </a>
+
+      <a class="art-category" href="unserious-art.html">
+        <div class="category-image">☻</div>
+        <div class="category-info">
+          <h2>Un-serious Art</h2>
+          <p>Silly drawings, memes, jokes, and chaotic creations.</p>
+          <span class="open-link">Explore the chaos ↗</span>
+        </div>
+      </a>
+
+      <a class="art-category" href="chibi.html">
+        <div class="category-image">♡</div>
+        <div class="category-info">
+          <h2>Chibi Art</h2>
+          <p>Cute characters, tiny expressions, and miniature adventures.</p>
+          <span class="open-link">Explore chibi art ↗</span>
+        </div>
+      </a>
+
+      <a class="art-category" href="background-art.html">
+        <div class="category-image">✧</div>
+        <div class="category-info">
+          <h2>Background Art</h2>
+          <p>Landscapes, scenery, locations, and atmospheric worlds.</p>
+          <span class="open-link">Explore backgrounds ↗</span>
+        </div>
+      </a>
+
+      <a class="art-category" href="item-art.html">
+        <div class="category-image">◇</div>
+        <div class="category-info">
+          <h2>Item Art</h2>
+          <p>Weapons, accessories, props, objects, and designs.</p>
+          <span class="open-link">Explore item art ↗</span>
+        </div>
+      </a>
+
+      <a class="art-category" href="food-art.html">
+        <div class="category-image">✿</div>
+        <div class="category-info">
+          <h2>Food Art</h2>
+          <p>Dishes, desserts, snacks, and delicious-looking creations.</p>
+          <span class="open-link">Explore food art ↗</span>
+        </div>
+      </a>
+
+      <a class="art-category" href="animations.html">
+        <div class="category-image">▶</div>
+        <div class="category-info">
+          <h2>Animations</h2>
+          <p>Character animations, short clips, animatics, and motion studies.</p>
+          <span class="open-link">Watch animations ↗</span>
+        </div>
+      </a>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span id="year"></span> My Art Portfolio · Made with creativity.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
+</body>
+</html>

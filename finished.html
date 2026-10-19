@@ -1,0 +1,749 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Finished Art | JustAArtist</title>
+
+  <style>
+    :root {
+      --background: #02182B;
+      --card: #08263B;
+      --text: #F5F7FA;
+      --muted: #B7CEDA;
+      --red: #D7263D;
+      --border: #448FA3;
+      --accent: #68C5DB;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse at 50% 0%, #39212a 0%, transparent 55%),
+        var(--background);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1150px;
+      margin: auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: rgba(23, 23, 25, 0.96);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+    }
+
+    nav {
+      min-height: 72px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-weight: bold;
+      letter-spacing: 3px;
+    }
+
+    .red {
+      color: var(--red);
+    }
+
+    .back {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .back:hover {
+      color: var(--accent);
+    }
+
+    .hero {
+      padding: 70px 0 35px;
+      text-align: center;
+    }
+
+    .ornament {
+      color: var(--red);
+      letter-spacing: 8px;
+      font-size: 20px;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 11px;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+
+    h1 {
+      font-family: Georgia, serif;
+      font-size: clamp(42px, 7vw, 76px);
+      line-height: 1.1;
+      margin: 15px 0;
+      font-weight: normal;
+    }
+
+    .intro {
+      max-width: 620px;
+      margin: 0 auto;
+      color: var(--muted);
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin: 35px 0;
+      color: var(--red);
+      letter-spacing: 4px;
+      font-size: 12px;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      height: 1px;
+      background: var(--border);
+      flex: 1;
+    }
+
+    .archive-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .archive-heading h2 {
+      font-family: Georgia, serif;
+      font-size: 27px;
+      font-weight: normal;
+      margin: 0;
+    }
+
+    .archive-heading p {
+      color: var(--muted);
+      font-size: 12px;
+      margin: 0;
+    }
+
+    .art-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+      padding-bottom: 70px;
+    }
+
+    .art-card {
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: linear-gradient(145deg, #292428, #202023);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .art-card:hover {
+      border-color: var(--red);
+      transform: translateY(-4px);
+    }
+
+    .art-open {
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      color: inherit;
+      text-align: left;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .art-frame {
+      aspect-ratio: 4 / 5;
+      padding: 12px;
+      background: #1d1c20;
+    }
+
+    .art-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+
+    .art-info {
+      padding: 15px;
+      border-top: 1px solid var(--border);
+    }
+
+    .art-number {
+      color: var(--red);
+      font-size: 10px;
+      letter-spacing: 2px;
+    }
+
+    .art-info p {
+      color: var(--muted);
+      font-size: 12px;
+      margin: 5px 0 0;
+    }
+
+    .view-hint {
+      display: inline-block;
+      margin-top: 9px;
+      color: var(--accent);
+      font-size: 12px;
+    }
+
+    /* POPUP */
+
+    .art-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.82);
+      overflow-y: auto;
+    }
+
+    .art-modal.open {
+      display: flex;
+    }
+
+    .modal-panel {
+      position: relative;
+      width: 100%;
+      max-width: 1000px;
+      max-height: calc(100vh - 40px);
+      overflow-y: auto;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #071e30;
+      padding: 25px;
+      box-shadow: 0 20px 70px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .modal-top h2 {
+      margin: 0;
+      font-family: Georgia, serif;
+      font-weight: normal;
+      font-size: 27px;
+    }
+
+    .close-button {
+      width: 42px;
+      height: 42px;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      background: #102f44;
+      color: var(--text);
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .close-button:hover {
+      background: var(--red);
+    }
+
+    .main-art {
+      min-height: 250px;
+      max-height: 60vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #111a24;
+      border: 1px solid #294354;
+      border-radius: 10px;
+      padding: 12px;
+    }
+
+    .main-art img {
+      display: block;
+      max-width: 100%;
+      max-height: 55vh;
+      object-fit: contain;
+    }
+
+    .stage-label {
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin: 22px 0 10px;
+    }
+
+    .stage-buttons {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .stage-button {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #102f44;
+      color: var(--text);
+      padding: 12px 8px;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .stage-button:hover,
+    .stage-button.active {
+      background: #45202d;
+      border-color: var(--red);
+    }
+
+    .stage-button img {
+      display: block;
+      width: 100%;
+      height: 100px;
+      object-fit: contain;
+      margin-bottom: 7px;
+      background: #101a24;
+      border-radius: 4px;
+    }
+
+    .stage-button span {
+      font-size: 12px;
+    }
+
+    .details {
+      border-top: 1px solid var(--border);
+      margin-top: 22px;
+      padding-top: 18px;
+    }
+
+    .details p {
+      color: var(--muted);
+      margin: 8px 0;
+    }
+
+    .details strong {
+      color: var(--text);
+    }
+
+    .bottom-note {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px;
+      text-align: center;
+      margin-bottom: 65px;
+      background: rgba(36, 36, 40, 0.6);
+    }
+
+    .bottom-note .symbol {
+      color: var(--red);
+      font-size: 22px;
+    }
+
+    .bottom-note p {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 5px 0 0;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 25px 0;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    @media (max-width: 750px) {
+      .art-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .hero {
+        padding-top: 50px;
+      }
+
+      .modal-panel {
+        padding: 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .art-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stage-buttons {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .stage-button img {
+        height: 85px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="container">
+      <a class="logo" href="index.html">MY ART<span class="red">.</span></a>
+      <a class="back" href="artwork.html">← Artwork Dictionary</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="ornament">✦ ── ✧ ── ✦</div>
+      <div class="eyebrow">The Art Archive · Collection 01</div>
+      <h1>Finished <span class="red">Art.</span></h1>
+      <p class="intro">
+        A collection of completed illustrations and the process
+        behind each piece. Click any artwork to explore its stages.
+      </p>
+      <div class="divider">✦ THE COLLECTION ✦</div>
+    </section>
+
+    <div class="archive-heading">
+      <h2>Gallery Archive</h2>
+      <p>CLICK AN ARTWORK TO EXPLORE</p>
+    </div>
+
+    <div class="art-grid" id="artGrid"></div>
+
+    <div class="bottom-note">
+      <div class="symbol">❧ ✦ ❧</div>
+      <strong>Every piece begins with an idea.</strong>
+      <p>Explore the sketches, lineart, colors, and final result.</p>
+    </div>
+  </main>
+
+  <!-- ARTWORK POPUP -->
+  <div class="art-modal" id="artModal"
+       role="dialog" aria-modal="true"
+       aria-labelledby="modalHeading">
+    <div class="modal-panel">
+      <div class="modal-top">
+        <h2 id="modalHeading">Artwork details</h2>
+        <button class="close-button" id="closeModal"
+                aria-label="Close artwork popup">×</button>
+      </div>
+
+      <div class="main-art">
+        <img id="mainArtImage" src="" alt="">
+      </div>
+
+      <div class="stage-label">Explore the process</div>
+      <div class="stage-buttons" id="stageButtons"></div>
+
+      <div class="details">
+        <p><strong>Description:</strong> <span id="artDescription"></span></p>
+        <p><strong>Date created:</strong> <span id="artDate"></span></p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      © <span id="year"></span> My Art Portfolio · Made with creativity.
+    </div>
+  </footer>
+
+  <script>
+    /*
+      HOW TO ADD OR EDIT ARTWORK:
+      1. Keep image files inside the images folder.
+      2. Replace each example process filename below with your real filename.
+      3. Write your description and date in each artwork entry.
+      4. Keep the finished filename exactly as it exists on your computer.
+    */
+
+    const artworks = [
+      {
+  finished: "images/angelcomp.webp",
+  sketch: "images/angelcomp.webp-sketch.webp",
+  lineart: "images/angelcomp.webp-lineart.webp",
+  flatColor: "images/angelcomp.webp-flatcolor.webp",
+  description: "This was created for a Discord Challenge. The theme was to recreate the Discord server's owners V-tuber model in your style.",
+  date: "9/19/26"
+},
+      
+{
+  finished: "images/sand%20fight.webp",
+  sketch: "images/sand%20fight.webp-sketch.webp",
+  lineart: "images/sand%20fight.webp-lineart.webp",
+   flatColor: "images/sand%20fight.webp-flatcolor.webp",
+  description: "I wanted to create a possible fight scene from my manga including Sentai, Kazuto, Sakina, and Zaharia. With Sentais lightning abilites about to strike, Sakina leaping forward with a punch, Kazuto boosting her with his gravity abilities, and Zaharia using the sand to defend herself and begin to stop the lightning from hitting her with the sand, and to knock down kazuto, leaving her semi-open for Sakina to attempt land her punch.",
+  date: "10/17/26"
+},
+
+      {
+        finished: "images/IMG_4587.webp",
+        sketch: "images/IMG_4587-sketch.webp",
+        lineart: "images/IMG_4587-lineart.webp",
+        flatColor: "images/IMG_4587-flatcolor.webp",
+        description: "Add a short description of this artwork here.",
+        date: "Add creation date here"
+      },
+      {
+        finished: "images/my-oc.png.webp",
+        sketch: "images/my-oc-sketch.webp",
+        lineart: "images/my-oc-lineart.webp",
+        flatColor: "images/my-oc-flatcolor.webp",
+        description: "Add a short description of this artwork here.",
+        date: "Add creation date here"
+      },
+      {
+        finished: "images/kurumicats.webp",
+        sketch: "images/kurumicats-sketch.webp",
+        lineart: "images/kurumicats-lineart.webp",
+        flatColor: "images/kurumicats-flatcolor.webp",
+        description: "Add a short description of this artwork here.",
+        date: "Add creation date here"
+      },
+      {
+        finished: "images/ChallengeDKZ.webp",
+        sketch: "images/ChallengeDKZ-sketch.webp",
+        lineart: "images/ChallengeDKZ-lineart.webp",
+        flatColor: "images/ChallengeDKZ-flatcolor.webp",
+        description: "Add a short description of this artwork here.",
+        date: "Add creation date here"
+      },
+      {
+        finished: "images/Lina.webp",
+        sketch: "images/Lina-sketch.webp",
+        lineart: "images/Lina-lineart.webp",
+        flatColor: "images/Lina-flatcolor.webp",
+        description: "Add a short description of this artwork here.",
+        date: "Add creation date here"
+      },
+      {
+        finished: "images/Luli.webp",
+        sketch: "images/Luli-sketch.webp",
+        lineart: "images/Luli-lineart.webp",
+        flatColor: "images/Luli-flatcolor.webp",
+        description: "Add a short description of this artwork here.",
+        date: "Add creation date here"
+      },
+      {
+        finished: "images/Piko.webp",
+        sketch: "images/Piko-sketch.webp",
+        lineart: "images/Piko-lineart.webp",
+        flatColor: "images/Piko-flatcolor.webp",
+        description: "Add a short description of this artwork here.",
+        date: "Add creation date here"
+      },
+      {
+        finished: "images/Poke.webp",
+        sketch: "images/Poke-sketch.webp",
+        lineart: "images/Poke-lineart.webp",
+        flatColor: "images/Poke-flatcolor.webp",
+        description: "Add a short description of this artwork here.",
+        date: "Add creation date here"
+      },
+      {
+        finished: "images/Sunending.webp",
+        sketch: "images/Sunending-sketch.webp",
+        lineart: "images/Sunending-lineart.webp",
+        flatColor: "images/Sunending-flatcolor.webp",
+        description: "Add a short description of this artwork here.",
+        date: "Add creation date here"
+      },
+      {
+        finished: "images/TenSis.webp",
+        sketch: "images/TenSis-sketch.webp",
+        lineart: "images/TenSis-lineart.webp",
+        flatColor: "images/TenSis-flatcolor.webp",
+        description: "Add a short description of this artwork here.",
+        date: "Add creation date here"
+      }
+    ];
+
+    const stages = [
+      { key: "finished", label: "Finished" },
+      { key: "sketch", label: "Sketch" },
+      { key: "lineart", label: "Lineart" },
+      { key: "flatColor", label: "Flat Color" }
+    ];
+
+    const artGrid = document.getElementById("artGrid");
+    const modal = document.getElementById("artModal");
+    const closeButton = document.getElementById("closeModal");
+    const mainImage = document.getElementById("mainArtImage");
+    const stageButtons = document.getElementById("stageButtons");
+    const description = document.getElementById("artDescription");
+    const date = document.getElementById("artDate");
+
+    let lastFocusedElement = null;
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    function showStage(artwork, selectedKey) {
+      const selectedStage = stages.find(
+        stage => stage.key === selectedKey
+      );
+
+      mainImage.src = artwork[selectedKey];
+      mainImage.alt = selectedStage.label + " stage of artwork";
+
+      stageButtons.querySelectorAll("button").forEach(button => {
+        const isSelected = button.dataset.stage === selectedKey;
+        button.classList.toggle("active", isSelected);
+        button.setAttribute("aria-pressed", String(isSelected));
+      });
+    }
+
+    function openArtwork(artwork, index, button) {
+      lastFocusedElement = button;
+
+      document.getElementById("modalHeading").textContent =
+        "Artwork · " + String(index + 1).padStart(3, "0");
+
+      description.textContent = artwork.description;
+      date.textContent = artwork.date;
+
+      stageButtons.replaceChildren();
+
+      stages.forEach(stage => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "stage-button";
+        button.dataset.stage = stage.key;
+
+        const thumbnail = document.createElement("img");
+        thumbnail.src = artwork[stage.key];
+        thumbnail.alt = "";
+        thumbnail.loading = "lazy";
+
+        const label = document.createElement("span");
+        label.textContent = stage.label;
+
+        button.append(thumbnail, label);
+        button.addEventListener("click", () => {
+          showStage(artwork, stage.key);
+        });
+
+        stageButtons.appendChild(button);
+      });
+
+      showStage(artwork, "finished");
+      modal.classList.add("open");
+      document.body.style.overflow = "hidden";
+      closeButton.focus();
+    }
+
+    function closeArtwork() {
+      modal.classList.remove("open");
+      document.body.style.overflow = "";
+
+      if (lastFocusedElement) {
+        lastFocusedElement.focus();
+      }
+    }
+
+    artworks.forEach((artwork, index) => {
+      const card = document.createElement("article");
+      card.className = "art-card";
+
+      const openButton = document.createElement("button");
+      openButton.type = "button";
+      openButton.className = "art-open";
+      openButton.setAttribute(
+        "aria-label",
+        "Open artwork " + (index + 1)
+      );
+
+      const frame = document.createElement("div");
+      frame.className = "art-frame";
+
+      const image = document.createElement("img");
+      image.className = "art-image";
+      image.src = artwork.finished;
+      image.alt = "Finished artwork " + (index + 1);
+      image.loading = "lazy";
+
+      frame.appendChild(image);
+      openButton.appendChild(frame);
+      openButton.addEventListener("click", () => {
+        openArtwork(artwork, index, openButton);
+      });
+
+      const info = document.createElement("div");
+      info.className = "art-info";
+
+      const number = document.createElement("div");
+      number.className = "art-number";
+      number.textContent =
+        "COLLECTION · " + String(index + 1).padStart(3, "0");
+
+      const details = document.createElement("p");
+      details.textContent = artwork.description;
+
+      const hint = document.createElement("span");
+      hint.className = "view-hint";
+      hint.textContent = "View artwork & process ↗";
+
+      info.append(number, details, hint);
+      card.append(openButton, info);
+      artGrid.appendChild(card);
+    });
+
+    closeButton.addEventListener("click", closeArtwork);
+
+    modal.addEventListener("click", event => {
+      if (event.target === modal) {
+        closeArtwork();
+      }
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && modal.classList.contains("open")) {
+        closeArtwork();
+      }
+    });
+  </script>
+</body>
+</html>

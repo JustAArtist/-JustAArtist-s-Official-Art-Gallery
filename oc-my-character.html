@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Character | Art Portfolio</title>
+
+  <style>
+    :root {
+      --background: #171719;
+      --card: #242428;
+      --text: #f5f0ed;
+      --muted: #b7afb2;
+      --red: #d94359;
+      --border: #41363b;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:hover { color: var(--red); }
+
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    header {
+      padding: 22px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .back {
+      color: var(--red);
+      font-weight: bold;
+    }
+
+    .profile {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+      gap: 35px;
+      align-items: center;
+      padding-top: 55px;
+      padding-bottom: 55px;
+    }
+
+    .portrait {
+      width: 100%;
+      display: block;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .eyebrow {
+      color: var(--red);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    h1 { font-size: clamp(32px, 5vw, 56px); line-height: 1.1; }
+
+    h2 { margin-top: 0; }
+
+    p { color: var(--muted); }
+
+    .artwork-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      padding-bottom: 60px;
+    }
+
+    .artwork-card {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: var(--card);
+    }
+
+    .artwork-card img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+    }
+
+    .artwork-card p { padding: 0 12px; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 20px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 650px) {
+      .profile { grid-template-columns: 1fr; }
+      .artwork-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <a class="back" href="index.html#characters">
+        ← Back to OC Directory
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="container profile">
+      <img
+        class="portrait"
+        src="images/my-oc.png.webp"
+        alt="Portrait of my original character"
+      >
+
+      <div>
+        <div class="eyebrow">Original Character</div>
+        <h1>My Character</h1>
+        <p>
+          Welcome to this character's gallery!
+          Here you can find all the artwork featuring this OC.
+        </p>
+      </div>
+    </section>
+
+    <section class="container">
+      <div class="eyebrow">Character Collection</div>
+      <h2>Artwork Featuring My Character</h2>
+
+      <div class="artwork-grid">
+
+        <!-- Add every new drawing of this character in this section. -->
+        <article class="artwork-card">
+          <img
+            src="images/my-oc.png.webp"
+            alt="My character artwork"
+          >
+          <p>Character artwork</p>
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">My Art Portfolio · Made with creativity.</div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,477 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sketches | My Art Portfolio</title>
+
+  <style>
+    :root {
+  --background: #02182B;
+  --card: #08263B;
+  --text: #F5F7FA;
+  --muted: #B7CEDA;
+
+  --red: #D7263D;
+  --border: #448FA3;
+  --accent: #68C5DB;
+
+  --sky-blue: #68C5DB;
+  --pacific-cyan: #448FA3;
+  --dodger-blue: #0197F6;
+  --classic-crimson: #D7263D;
+  --prussian-blue: #02182B;
+  --bright-crimson: #F2003C;
+  --dark-red: #7C0A02;
+  --vivid-red: #ED2939;
+  --deep-burgundy: #58111A;
+}
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse at 50% 0%, #39212a 0%, transparent 55%),
+        var(--background);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1150px;
+      margin: auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: rgba(23, 23, 25, 0.96);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+    }
+
+    nav {
+      min-height: 72px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-weight: bold;
+      letter-spacing: 3px;
+    }
+
+    .red {
+      color: var(--red);
+    }
+
+    .back {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .back:hover {
+      color: var(--accent);
+    }
+
+    .hero {
+      padding: 75px 0 35px;
+      text-align: center;
+    }
+
+    .ornament {
+      color: var(--red);
+      letter-spacing: 8px;
+      font-size: 20px;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 11px;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+
+    h1 {
+      font-family: Georgia, serif;
+      font-size: clamp(42px, 7vw, 76px);
+      line-height: 1.1;
+      margin: 15px 0;
+      font-weight: normal;
+    }
+
+    .intro {
+      max-width: 620px;
+      margin: 0 auto;
+      color: var(--muted);
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin: 35px 0;
+      color: var(--red);
+      letter-spacing: 4px;
+      font-size: 12px;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      height: 1px;
+      background: var(--border);
+      flex: 1;
+    }
+
+    .archive-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .archive-heading h2 {
+      font-family: Georgia, serif;
+      font-size: 27px;
+      font-weight: normal;
+      margin: 0;
+    }
+
+    .archive-heading p {
+      color: var(--muted);
+      font-size: 12px;
+      margin: 0;
+    }
+
+    .art-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+      padding-bottom: 70px;
+    }
+
+    .art-card {
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: linear-gradient(145deg, #292428, #202023);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .art-card:hover {
+      border-color: var(--red);
+      transform: translateY(-4px);
+    }
+
+    .art-frame {
+      aspect-ratio: 4 / 5;
+      padding: 12px;
+      background:
+        repeating-linear-gradient(
+          135deg,
+          transparent,
+          transparent 16px,
+          rgba(217, 67, 89, 0.025) 16px,
+          rgba(217, 67, 89, 0.025) 17px
+        ),
+        #1d1c20;
+    }
+
+    .frame-inner {
+      width: 100%;
+      height: 100%;
+      border: 1px dashed #59404a;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 12px;
+      gap: 10px;
+    }
+
+    .frame-symbol {
+      font-family: Georgia, serif;
+      color: var(--red);
+      font-size: 30px;
+    }
+
+    .frame-label {
+      color: var(--accent);
+      font-size: 10px;
+      letter-spacing: 3px;
+      font-weight: bold;
+    }
+
+    .frame-note {
+      color: #8f858b;
+      font-size: 12px;
+    }
+
+    .art-info {
+      padding: 15px;
+      border-top: 1px solid var(--border);
+    }
+
+    .art-number {
+      color: var(--red);
+      font-size: 10px;
+      letter-spacing: 2px;
+    }
+
+    .art-info h3 {
+      margin: 5px 0;
+      font-size: 16px;
+      font-weight: normal;
+    }
+
+    .art-info p {
+      color: var(--muted);
+      font-size: 12px;
+      margin: 0;
+    }
+
+    .bottom-note {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px;
+      text-align: center;
+      margin-bottom: 65px;
+      background: rgba(36, 36, 40, 0.6);
+    }
+
+    .bottom-note .symbol {
+      color: var(--red);
+      font-size: 22px;
+    }
+
+    .bottom-note p {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 5px 0 0;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 25px 0;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    /* SKETCHBOOK STYLE */
+    body.sketch-page {
+  --accent: #68C5DB;
+  --red: #D7263D;
+}
+
+body.sketch-page .art-card {
+  border-radius: 3px;
+}
+
+body.sketch-page .frame-inner {
+  border-style: dashed;
+  border-color: #448FA3;
+}
+
+    /* LINEART STYLE */
+    body.lineart-page {
+      --accent: #dedde5;
+      --red: #b7a2dc;
+    }
+
+    body.lineart-page .art-frame {
+      background: #202027;
+    }
+
+    /* FLAT COLOR STYLE */
+    body.flat-page {
+      --accent: #f0c5a5;
+      --red: #e06476;
+    }
+
+    body.flat-page .art-frame {
+      background:
+        linear-gradient(135deg, #33232d, #242b35);
+    }
+
+    @media (max-width: 750px) {
+      .art-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .hero {
+        padding-top: 50px;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .art-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .art-frame {
+        aspect-ratio: 4 / 4;
+      }
+    }
+  </style>
+</head>
+
+<body class="finished-page">
+  <header>
+    <nav class="container">
+      <a class="logo" href="index.html">MY ART<span class="red">.</span></a>
+      <a class="back" href="artwork.html">← Artwork Dictionary</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="ornament">✦ ── ✧ ── ✦</div>
+      <div class="eyebrow">The Art Archive · Collection 02</div>
+      <h1>Sketch <span class="red">book.</span></h1>
+      <p class="intro">
+  A peek into my creative process: rough sketches,
+  spontaneous ideas, character studies, and drawings in progress.
+</p>
+      <div class="divider">✦ THE COLLECTION ✦</div>
+    </section>
+
+    <div class="archive-heading">
+      <h2>Gallery Archive</h2>
+      <p>YOUR ARTWORK WILL BE ADDED LATER</p>
+    </div>
+
+    <div class="art-grid">
+      <article class="art-card">
+        <div class="art-frame">
+          <div class="frame-inner">
+            <div class="frame-symbol">✧</div>
+            <div class="frame-label">ARTWORK 01</div>
+            <div class="frame-note">Reserved for your artwork</div>
+          </div>
+        </div>
+        <div class="art-info">
+          <div class="art-number">COLLECTION · 001</div>
+          <h3>Untitled Piece</h3>
+          <p>Title and details to be added</p>
+        </div>
+      </article>
+
+      <article class="art-card">
+        <div class="art-frame">
+          <div class="frame-inner">
+            <div class="frame-symbol">✧</div>
+            <div class="frame-label">ARTWORK 02</div>
+            <div class="frame-note">Reserved for your artwork</div>
+          </div>
+        </div>
+        <div class="art-info">
+          <div class="art-number">COLLECTION · 002</div>
+          <h3>Untitled Piece</h3>
+          <p>Title and details to be added</p>
+        </div>
+      </article>
+
+      <article class="art-card">
+        <div class="art-frame">
+          <div class="frame-inner">
+            <div class="frame-symbol">✧</div>
+            <div class="frame-label">ARTWORK 03</div>
+            <div class="frame-note">Reserved for your artwork</div>
+          </div>
+        </div>
+        <div class="art-info">
+          <div class="art-number">COLLECTION · 003</div>
+          <h3>Untitled Piece</h3>
+          <p>Title and details to be added</p>
+        </div>
+      </article>
+
+      <article class="art-card">
+        <div class="art-frame">
+          <div class="frame-inner">
+            <div class="frame-symbol">✧</div>
+            <div class="frame-label">ARTWORK 04</div>
+            <div class="frame-note">Reserved for your artwork</div>
+          </div>
+        </div>
+        <div class="art-info">
+          <div class="art-number">COLLECTION · 004</div>
+          <h3>Untitled Piece</h3>
+          <p>Title and details to be added</p>
+        </div>
+      </article>
+
+      <article class="art-card">
+        <div class="art-frame">
+          <div class="frame-inner">
+            <div class="frame-symbol">✧</div>
+            <div class="frame-label">ARTWORK 05</div>
+            <div class="frame-note">Reserved for your artwork</div>
+          </div>
+        </div>
+        <div class="art-info">
+          <div class="art-number">COLLECTION · 005</div>
+          <h3>Untitled Piece</h3>
+          <p>Title and details to be added</p>
+        </div>
+      </article>
+
+      <article class="art-card">
+        <div class="art-frame">
+          <div class="frame-inner">
+            <div class="frame-symbol">✧</div>
+            <div class="frame-label">ARTWORK 06</div>
+            <div class="frame-note">Reserved for your artwork</div>
+          </div>
+        </div>
+        <div class="art-info">
+          <div class="art-number">COLLECTION · 006</div>
+          <h3>Untitled Piece</h3>
+          <p>Title and details to be added</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="bottom-note">
+      <div class="symbol">❧ ✦ ❧</div>
+      <strong>Every piece begins with an idea.</strong>
+      <p>This collection will grow as more artwork is added.</p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span id="year"></span> My Art Portfolio · Made with creativity.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
+</body>
+</html>

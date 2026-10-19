@@ -1,0 +1,600 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sentai | Character Profile</title>
+
+  <style>
+    :root {
+      --background: #171719;
+      --card: #242428;
+      --text: #f5f0ed;
+      --muted: #b7afb2;
+      --red: #d94359;
+      --border: #41363b;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      line-height: 1.7;
+    }
+
+    a {
+      color: var(--red);
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #ff8496;
+    }
+
+    header {
+      padding: 18px 6%;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      color: var(--red);
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .back-link {
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      border-radius: 8px;
+    }
+
+    main {
+      width: 90%;
+      max-width: 1100px;
+      margin: 35px auto 70px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 35px;
+      align-items: center;
+      padding: 25px 0 45px;
+    }
+
+    .eyebrow {
+      color: var(--red);
+      font-size: 0.8rem;
+      font-weight: bold;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      line-height: 1.05;
+      margin: 10px 0;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 1.7rem;
+    }
+
+    h2::after {
+      content: "";
+      display: block;
+      width: 55px;
+      height: 3px;
+      background: var(--red);
+      margin-top: 8px;
+    }
+
+    h3 {
+      margin-bottom: 5px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .portrait {
+      min-height: 360px;
+      height: 100%;
+      max-height: 560px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background:
+        radial-gradient(ellipse at 50% 30%, #632331, #242428 65%);
+    }
+
+    .portrait img {
+      width: 100%;
+      height: 100%;
+      min-height: 360px;
+      max-height: 560px;
+      display: block;
+      object-fit: contain;
+      position: absolute;
+      inset: 0;
+    }
+
+    .placeholder {
+      min-height: 200px;
+      padding: 25px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: var(--muted);
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      background: #1e1e22;
+    }
+
+    .portrait .placeholder {
+      height: 100%;
+      min-height: 360px;
+      border: 0;
+      background: transparent;
+    }
+
+    .placeholder strong {
+      color: var(--red);
+      font-size: 1.1rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .stat {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 12px;
+      border-radius: 10px;
+    }
+
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .stat strong {
+      overflow-wrap: anywhere;
+    }
+
+    .section {
+      margin-top: 38px;
+      scroll-margin-top: 20px;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .tag-list li {
+      border: 1px solid var(--red);
+      color: #ffb5c0;
+      background: #301c22;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .mini-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 18px;
+      border-radius: 12px;
+      min-width: 0;
+    }
+
+    .mini-card p {
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    .art-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 15px;
+    }
+
+    .artwork {
+      min-width: 0;
+    }
+
+    .artwork img {
+      display: block;
+      width: 100%;
+      height: 240px;
+      object-fit: contain;
+      background: #1e1e22;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .artwork .placeholder {
+      min-height: 240px;
+      height: 240px;
+    }
+
+    .artwork p {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    @media (max-width: 700px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .portrait {
+        min-height: 300px;
+      }
+
+      .portrait img,
+      .portrait .placeholder {
+        min-height: 300px;
+      }
+
+      .grid,
+      .art-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .artwork img {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <a class="logo" href="index.html">MY ART PORTFOLIO</a>
+    <a class="back-link" href="characters.html">
+      ← All Characters
+    </a>
+  </header>
+
+  <main>
+    <section class="hero" id="top">
+      <div>
+        <p class="eyebrow">Character Database</p>
+        <h1 id="character-name">Sentai</h1>
+        <p class="muted" id="character-role">Character role goes here</p>
+        <p id="short-description">
+          Add a short introduction to this character here.
+        </p>
+
+        <div class="stats" id="stats"></div>
+      </div>
+
+      <div class="portrait" id="portrait"></div>
+    </section>
+
+    <section class="section" id="personality">
+      <h2>Personality & Traits</h2>
+      <div class="panel">
+        <p id="personality-text"></p>
+        <ul class="tag-list" id="traits"></ul>
+      </div>
+    </section>
+
+    <section class="section" id="powers">
+      <h2>Powers & Abilities</h2>
+      <div class="grid" id="abilities"></div>
+    </section>
+
+    <section class="section" id="lore">
+      <h2>Backstory & Lore</h2>
+      <div class="panel">
+        <p id="backstory"></p>
+      </div>
+    </section>
+
+    <section class="section" id="relationships">
+      <h2>Relationships</h2>
+      <div class="grid" id="relationships-grid"></div>
+    </section>
+
+    <section class="section" id="reference">
+      <h2>Character Reference Sheet</h2>
+      <p class="muted">
+        Design references, outfits, colors, and alternate views.
+      </p>
+      <div id="reference-sheet"></div>
+    </section>
+
+    <section class="section" id="gallery">
+      <h2>Artwork Gallery</h2>
+      <p class="muted">
+        Illustrations, sketches, finished pieces, and other artwork.
+      </p>
+      <div class="art-grid" id="art-gallery"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p id="footer-text">Character Database • My Art Portfolio</p>
+    <a href="#top">Back to top ↑</a>
+  </footer>
+
+  <script>
+    /*
+      EDIT THIS SECTION TO CUSTOMIZE THIS CHARACTER.
+      Keep the quotation marks and commas in place.
+    */
+
+    const character = {
+      name: "Kenjiro",
+      role: "Deuteragonist",
+      universe: "Your Manga Universe Book 2",
+      age: "19",
+      height: "6'3, 190.5cm",
+      pronouns: "He/Him",
+      affiliation: "Not added yet",
+
+      portrait: "images/my-oc.png.webp",
+      reference: "images/KenjiroRef.webp",
+
+      description:
+        "Write a short introduction that tells readers who Sentai is.",
+
+      personality:
+        "Describe Sentai's personality, values, flaws, and what motivates him.",
+
+      traits: [
+        "Add a trait",
+        "Add another trait",
+        "Add a third trait"
+      ],
+
+      abilities: [
+        {
+          name: "Ability One",
+          description: "Describe this power and what it can do."
+        },
+        {
+          name: "Ability Two",
+          description: "Describe another power or fighting skill."
+        },
+        {
+          name: "Strengths",
+          description: "Describe what this character does particularly well."
+        },
+        {
+          name: "Weaknesses",
+          description: "Describe limits, risks, or challenges."
+        }
+      ],
+
+      backstory:
+        "Write the character's history here. You can include their childhood, important events, goals, secrets, and place in the main story.",
+
+      relationships: [
+        {
+          name: "Friend",
+          role: "Friend",
+          description: "Describe this relationship."
+        },
+        {
+          name: "Rival",
+          role: "Rival",
+          description: "Describe this relationship."
+        }
+      ],
+
+      artwork: [
+        {
+          title: "Artwork One",
+          image: "images/Kenjiro-art-1.png"
+        },
+        {
+          title: "Artwork Two",
+          image: ""
+        },
+        {
+          title: "Artwork Three",
+          image: ""
+        }
+      ]
+    };
+
+    /*
+      YOU SHOULDN'T NEED TO EDIT THE CODE BELOW THIS LINE.
+    */
+
+    function showImage(container, src, alt, fallbackTitle) {
+      container.replaceChildren();
+
+      if (!src) {
+        showPlaceholder(container, fallbackTitle);
+        return;
+      }
+
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = alt;
+
+      img.onerror = () => {
+        showPlaceholder(container, fallbackTitle);
+      };
+
+      container.appendChild(img);
+    }
+
+    function showPlaceholder(container, title) {
+      container.replaceChildren();
+
+      const placeholder = document.createElement("div");
+      placeholder.className = "placeholder";
+
+      const heading = document.createElement("strong");
+      heading.textContent = title;
+
+      const note = document.createElement("span");
+      note.textContent = "Artwork will appear here when you add an image.";
+
+      placeholder.append(heading, note);
+      container.appendChild(placeholder);
+    }
+
+    function addTextCard(container, title, description) {
+      const card = document.createElement("article");
+      card.className = "mini-card";
+
+      const heading = document.createElement("h3");
+      heading.textContent = title;
+
+      const paragraph = document.createElement("p");
+      paragraph.textContent = description;
+
+      card.append(heading, paragraph);
+      container.appendChild(card);
+    }
+
+    document.title = character.name + " | Character Profile";
+    document.getElementById("character-name").textContent =
+      character.name;
+    document.getElementById("character-role").textContent =
+      character.role + " • " + character.universe;
+    document.getElementById("short-description").textContent =
+      character.description;
+    document.getElementById("personality-text").textContent =
+      character.personality;
+    document.getElementById("backstory").textContent =
+      character.backstory;
+    document.getElementById("footer-text").textContent =
+      character.name + " • Character Database";
+
+    showImage(
+      document.getElementById("portrait"),
+      character.portrait,
+      character.name + " portrait",
+      "Portrait Coming Soon"
+    );
+
+    const stats = document.getElementById("stats");
+
+    [
+      ["Age", character.age],
+      ["Height", character.height],
+      ["Pronouns", character.pronouns],
+      ["Affiliation", character.affiliation]
+    ].forEach(([label, value]) => {
+      const box = document.createElement("div");
+      box.className = "stat";
+
+      const small = document.createElement("span");
+      small.textContent = label;
+
+      const strong = document.createElement("strong");
+      strong.textContent = value;
+
+      box.append(small, strong);
+      stats.appendChild(box);
+    });
+
+    character.traits.forEach(trait => {
+      const item = document.createElement("li");
+      item.textContent = trait;
+      document.getElementById("traits").appendChild(item);
+    });
+
+    character.abilities.forEach(ability => {
+      addTextCard(
+        document.getElementById("abilities"),
+        ability.name,
+        ability.description
+      );
+    });
+
+    character.relationships.forEach(person => {
+      addTextCard(
+        document.getElementById("relationships-grid"),
+        person.name + " — " + person.role,
+        person.description
+      );
+    });
+
+    showImage(
+      document.getElementById("reference-sheet"),
+      character.reference,
+      character.name + " reference sheet",
+      "Reference Sheet Coming Soon"
+    );
+
+    character.artwork.forEach((piece, index) => {
+      const figure = document.createElement("figure");
+      figure.className = "artwork";
+
+      const media = document.createElement("div");
+
+      showImage(
+        media,
+        piece.image,
+        character.name + " - " + piece.title,
+        "Artwork " + (index + 1) + " Coming Soon"
+      );
+
+      const caption = document.createElement("p");
+      caption.textContent = piece.title;
+
+      figure.append(media, caption);
+      document.getElementById("art-gallery").appendChild(figure);
+    });
+  </script>
+</body>
+</html>
