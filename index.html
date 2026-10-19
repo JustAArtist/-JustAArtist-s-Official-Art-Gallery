@@ -438,6 +438,178 @@
         grid-template-columns: 1fr;
       }
     }
+    
+/* ===== JUSTAARTIST ANIMATIONS ===== */
+
+/* Artwork cards gently lift and glow */
+.art-card,
+.artwork-card,
+.gallery-item,
+.featured-grid > *,
+.hero-art {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    filter 0.3s ease;
+}
+
+@media (hover: hover) {
+  .art-card:hover,
+  .artwork-card:hover,
+  .gallery-item:hover,
+  .featured-grid > *:hover,
+  .hero-art:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 8px 28px rgba(215, 38, 61, 0.28);
+  }
+}
+
+/* Crimson glow for buttons */
+button,
+.btn,
+.button,
+a.button {
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease,
+    background-color 0.3s ease;
+}
+
+@media (hover: hover) {
+  button:hover,
+  .btn:hover,
+  .button:hover,
+  a.button:hover {
+    box-shadow: 0 0 18px rgba(215, 38, 61, 0.45);
+    transform: translateY(-2px);
+  }
+}
+
+/* Smooth entrance when scrolling */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Respect visitors who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal-on-scroll {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes crimsonFloat {
+  0% {
+    transform: translate3d(0, 15vh, 0);
+  }
+  50% {
+    transform: translate3d(18px, -8vh, 0);
+  }
+  100% {
+    transform: translate3d(-12px, -30vh, 0);
+  }
+}
+
+
+/* ===== SMOOTH CRIMSON PAGE TRANSITION ===== */
+
+#page-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 50%,
+      rgba(215, 38, 61, 0.22),
+      transparent 55%),
+    #02182B;
+
+  transform: translateY(100%);
+  visibility: hidden;
+  transition:
+    transform 0.55s cubic-bezier(0.76, 0, 0.24, 1),
+    visibility 0s linear 0.55s;
+}
+
+#page-transition::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(215, 38, 61, 0.35),
+    transparent 60%
+  );
+  transform: scale(0.65);
+  opacity: 0;
+  transition:
+    transform 0.65s ease,
+    opacity 0.45s ease;
+}
+
+#page-transition.active {
+  transform: translateY(0);
+  visibility: visible;
+  transition:
+    transform 0.55s cubic-bezier(0.76, 0, 0.24, 1),
+    visibility 0s;
+}
+
+#page-transition.active::after {
+  transform: scale(1.15);
+  opacity: 1;
+}
+
+/* New page arrives smoothly */
+
+body.page-entering {
+  animation: pageArrive 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes pageArrive {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.99);
+    filter: blur(3px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #page-transition,
+  #page-transition::after {
+    transition: none !important;
+  }
+
+  body.page-entering {
+    animation: none !important;
+  }
+}
+
+
   </style>
 </head>
 
@@ -666,5 +838,152 @@
     document.getElementById("year").textContent =
       new Date().getFullYear();
   </script>
+  
+<script>
+// ===== SCROLL FADE-IN =====
+document.addEventListener("DOMContentLoaded", () => {
+  const items = document.querySelectorAll(
+    "section, .featured-content, .featured-grid, .hero-art, .art-card, .artwork-card, .gallery-item"
+  );
+
+  // If reduced motion is preferred, show everything immediately.
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    return;
+  }
+
+  // Older browsers without IntersectionObserver should show everything.
+  if (!("IntersectionObserver" in window)) {
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.12
+  });
+
+  items.forEach((item) => {
+    item.classList.add("reveal-on-scroll");
+    observer.observe(item);
+  });
+});
+</script>
+
+<script>
+// ===== FLOATING CRIMSON PARTICLES =====
+document.addEventListener("DOMContentLoaded", () => {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    return;
+  }
+
+  const layer = document.createElement("div");
+  layer.id = "crimson-particles";
+  layer.setAttribute("aria-hidden", "true");
+
+  Object.assign(layer.style, {
+    position: "fixed",
+    inset: "0",
+    overflow: "hidden",
+    pointerEvents: "none",
+    zIndex: "0"
+  });
+
+  // Keep the website content above the particles.
+  document.body.insertBefore(layer, document.body.firstChild);
+
+  for (let i = 0; i < 24; i++) {
+    const particle = document.createElement("span");
+
+    const size = Math.random() * 4 + 2;
+    const duration = Math.random() * 12 + 10;
+    const delay = Math.random() * -20;
+
+    Object.assign(particle.style, {
+      position: "absolute",
+      left: Math.random() * 100 + "%",
+      top: Math.random() * 100 + "%",
+      width: size + "px",
+      height: size + "px",
+      borderRadius: "50%",
+      background: "#D7263D",
+      boxShadow: "0 0 10px rgba(215, 38, 61, 0.7)",
+      opacity: String(Math.random() * 0.45 + 0.15),
+      animation: `crimsonFloat ${duration}s ${delay}s linear infinite`
+    });
+
+    layer.appendChild(particle);
+  }
+});
+</script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Animate the arrival on every page
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.body.classList.add("page-entering");
+  }
+
+  // Create the transition overlay
+  let overlay = document.getElementById("page-transition");
+
+  if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.id = "page-transition";
+    overlay.setAttribute("aria-hidden", "true");
+    document.body.appendChild(overlay);
+  }
+
+  document.addEventListener("click", (event) => {
+    const link = event.target.closest("a");
+
+    if (!link || !link.href) return;
+
+    if (
+      event.defaultPrevented ||
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey ||
+      link.target === "_blank" ||
+      link.hasAttribute("download")
+    ) return;
+
+    const destination = new URL(link.href, location.href);
+
+    // Leave external links and non-HTML links alone
+    if (destination.origin !== location.origin) return;
+    if (!/\.html?$/i.test(destination.pathname)) return;
+
+    // Don't animate links that only jump to a section
+    if (
+      destination.pathname === location.pathname &&
+      destination.search === location.search &&
+      destination.hash
+    ) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      location.href = destination.href;
+      return;
+    }
+
+    event.preventDefault();
+    overlay.classList.add("active");
+
+    // Wait for the outgoing animation to finish
+    setTimeout(() => {
+      location.href = destination.href;
+    }, 550);
+  });
+});
+</script>
+
+
 </body>
 </html>
